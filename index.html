@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Taing Ayting Portfolio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Taing Ayting turns the problems in her day into apps people can use. See her real apps, her purpose and what she wants to do next.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Caveat:wght@500;700&family=Battambang:wght@400;700&display=swap">
+<style>
+/* Layout: a cozy mocha home screen. Rounded widgets, paper notes and a dock of app icons. One dark look by choice. */
+:root {
+  --bg: #1d1815; --tile: #2a231f; --tile-2: #362c26; --line: #463930;
+  --cream: #f4e9db; --taupe: #bcaa98; --caramel: #d59b5f; --caramel-deep: #a96f3a; --paper: #efe2d0; --paper-ink: #352a22;
+  --display: "DM Serif Display", Georgia, serif;
+  --body: "DM Sans", "Segoe UI", system-ui, sans-serif;
+  --hand: "Caveat", "Segoe Script", cursive;
+  --khmer: "Battambang", "Khmer OS", sans-serif;
+  --r: 26px;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--cream); font: 400 17px/1.6 var(--body); }
+.wrap {
+  max-width: 1240px; margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+a { color: var(--caramel); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible, video:focus-visible { outline: 2px solid var(--caramel); outline-offset: 2px; }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; text-wrap: balance; margin: 0; line-height: 1.08; }
+h1 { font-size: clamp(2.9rem, 5.6vw, 5rem); }
+h2 { font-size: clamp(2.3rem, 4.4vw, 3.7rem); }
+h3 { font-size: 1.75rem; }
+h1 em, h2 em { color: var(--caramel); }
+p { margin: 0; max-width: 62ch; }
+img { display: block; width: 100%; height: 100%; object-fit: cover; }
+button { font-family: inherit; }
+.label { font: 700 0.74rem/1.4 var(--body); letter-spacing: 0.13em; text-transform: uppercase; color: var(--caramel); }
+.muted { color: var(--taupe); }
+.small { font-size: 0.93rem; }
+ul { margin: 0; padding-left: 1.1em; display: grid; gap: 9px; }
+ul li::marker { color: var(--caramel); }
+.tile { background: var(--tile); border-radius: var(--r); padding: 24px; min-width: 0; }
+.view { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; overflow: hidden; }
+.view img { transition: transform .4s; }
+.view:hover img { transform: scale(1.03); }
+.btn { display: inline-block; font: 700 0.96rem/1.2 var(--body); padding: 13px 20px; border-radius: 99px; border: 1px solid var(--caramel); background: transparent; color: var(--caramel); text-decoration: none; cursor: pointer; }
+.btn:hover { background: var(--caramel); color: var(--bg); }
+
+.top .wrap { display: flex; flex-wrap: wrap; gap: 4px 24px; align-items: baseline; justify-content: space-between; padding-block: 18px 10px; }
+.top strong { font: 400 1.35rem/1.1 var(--display); }
+.top nav { display: flex; flex-wrap: wrap; gap: 4px 20px; font-size: 0.96rem; }
+
+.board { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; padding-block: 10px 14px; }
+.w-photo { grid-column: 1 / 3; grid-row: 1 / 4; border-radius: var(--r); min-height: 520px; }
+.w-photo img { object-position: 50% 35%; }
+.w-hello { grid-column: 3 / 6; grid-row: 1 / 3; display: grid; gap: 16px; align-content: center; padding: 34px; }
+.w-date { grid-column: 6; grid-row: 1; background: var(--caramel-deep); text-align: center; display: grid; place-content: center; gap: 0; padding: 14px; }
+.w-date b { font: 400 3.6rem/1 var(--display); }
+.w-date span { font: 700 0.76rem/1.5 var(--body); letter-spacing: 0.13em; text-transform: uppercase; }
+.w-stat { grid-column: 6; grid-row: 2; display: grid; place-content: center; text-align: center; padding: 14px; }
+.w-stat b { font: 400 3.2rem/1 var(--display); color: var(--caramel); }
+.w-now { grid-column: 3 / 5; grid-row: 3; display: grid; gap: 8px; align-content: start; }
+.w-next { grid-column: 5 / 7; grid-row: 3; display: grid; gap: 8px; align-content: start; background: var(--tile-2); }
+.note { background: var(--paper); color: var(--paper-ink); font: 500 1.5rem/1.2 var(--hand); padding: 20px 22px; border-radius: 4px; position: relative; }
+.note::before { content: ""; position: absolute; top: -9px; left: 50%; width: 76px; height: 20px; margin-left: -38px; background: rgba(213, 155, 95, .55); transform: rotate(-2deg); }
+
+.dock { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 26px; background: var(--tile); border-radius: var(--r); padding: 16px; margin-bottom: 8px; }
+.app-link { display: grid; justify-items: center; gap: 6px; text-decoration: none; color: var(--cream); font-size: 0.84rem; font-weight: 500; }
+.icon { width: 62px; height: 62px; border-radius: 17px; display: grid; place-items: center; background: var(--tile-2); color: var(--caramel); transition: transform .2s; }
+.icon.warm { background: var(--caramel); color: var(--bg); }
+.icon.cream { background: var(--paper); color: var(--paper-ink); }
+.app-link:hover .icon { transform: translateY(-4px); }
+.icon svg { width: 30px; height: 30px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+section { scroll-margin-top: 12px; }
+section > .wrap { padding-block: clamp(46px, 7vw, 86px); display: grid; gap: 26px; }
+.head { display: grid; gap: 10px; }
+
+.ideas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+.ideas .note { display: grid; gap: 6px; }
+.ideas .note:nth-child(1) { transform: rotate(-1.2deg); }
+.ideas .note:nth-child(2) { transform: rotate(.8deg); }
+.ideas .note:nth-child(3) { transform: rotate(-.6deg); }
+.ideas [lang="km"] { font: 700 1.2rem/1.5 var(--khmer); color: var(--caramel-deep); }
+.ideas strong { font-weight: 700; }
+
+.window { background: var(--tile); border-radius: var(--r); overflow: hidden; }
+.win-bar { display: flex; gap: 7px; align-items: center; padding: 12px 18px; background: var(--tile-2); font-size: 0.85rem; color: var(--taupe); }
+.win-bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--caramel); }
+.win-bar i:nth-child(2) { background: var(--taupe); }
+.win-bar i:nth-child(3) { background: var(--paper); margin-right: 8px; }
+video { display: block; width: 100%; height: auto; background: #000; }
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.facts .tile { display: grid; gap: 7px; align-content: start; }
+.figs { display: flex; flex-wrap: wrap; gap: 6px 26px; }
+.figs div { display: grid; }
+.figs b { font: 400 2.4rem/1.15 var(--display); color: var(--caramel); }
+.figs span { font-size: 0.85rem; color: var(--taupe); }
+
+.strip { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x proximity; padding-bottom: 12px; cursor: grab; scrollbar-color: var(--caramel-deep) transparent; }
+.strip.dragging { cursor: grabbing; scroll-snap-type: none; }
+.strip figure { margin: 0; flex: 0 0 clamp(270px, 40vw, 520px); scroll-snap-align: start; display: grid; gap: 8px; }
+.strip .view { aspect-ratio: 1.6; border-radius: 16px; }
+.strip .view img { object-position: top left; }
+.strip figcaption { font-size: 0.93rem; color: var(--taupe); }
+.sara { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 14px; align-items: start; }
+.sara .side { display: grid; gap: 14px; }
+
+.two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; }
+.two .tile { display: grid; gap: 13px; align-content: start; padding: 30px; }
+
+.vision { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); grid-auto-rows: 170px; gap: 12px; }
+.vision .view { border-radius: 20px; }
+.vision .v1 { grid-column: span 2; grid-row: span 2; }
+.vision .v2 { grid-column: span 2; grid-row: span 2; }
+.vision .v3 { grid-column: span 2; grid-row: span 2; }
+.vision .v6 { grid-column: span 2; }
+.vision .v4 { grid-column: span 1; }
+.vision .v5 { grid-column: span 1; }
+.vision .quote { grid-column: span 2; background: var(--paper); color: var(--paper-ink); font: 500 1.4rem/1.18 var(--hand); padding: 18px; border-radius: 20px; display: flex; align-items: center; }
+
+.rows { display: grid; }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 20px; padding-block: 11px; border-top: 1px solid var(--line); }
+.row .when { font-size: 0.9rem; color: var(--taupe); }
+
+.contact { background: var(--caramel-deep); border-radius: var(--r); padding: clamp(30px, 5vw, 56px); display: grid; gap: 14px; margin-bottom: 26px; }
+.contact [lang="km"] { font: 700 1.5rem/1.6 var(--khmer); }
+.contact h2 em { color: var(--paper); }
+.contact .links { display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: center; font-size: 1.1rem; font-weight: 500; }
+.contact a { color: var(--cream); }
+.contact .btn { border-color: var(--cream); color: var(--cream); padding: 9px 15px; font-size: .9rem; }
+.contact .btn:hover { background: var(--cream); color: var(--caramel-deep); }
+
+dialog { border: 0; padding: 0; background: transparent; max-width: 100vw; max-height: 100vh; width: 100%; height: 100%; }
+dialog::backdrop { background: rgba(15, 11, 9, .94); }
+.lb { height: 100%; display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 10px; padding: 16px max(16px, env(safe-area-inset-left, 0px)); color: var(--cream); }
+.lb .stage { min-height: 0; display: flex; align-items: center; justify-content: center; }
+.lb img { width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 10px; }
+.lb .ctl { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; justify-content: center; }
+.lb .cap { flex: 1 1 100%; text-align: center; }
+.lb button { font: 700 .95rem/1 var(--body); padding: 11px 18px; border-radius: 99px; border: 1px solid var(--cream); background: transparent; color: var(--cream); cursor: pointer; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .view img, .icon { transition: none; }
+}
+@media (max-width: 900px) {
+  .board { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .w-photo { grid-column: 1 / 3; grid-row: auto; min-height: 0; aspect-ratio: .9; }
+  .w-hello, .w-now, .w-next { grid-column: 1 / 3; grid-row: auto; }
+  .w-hello { padding: 24px; }
+  .w-date, .w-stat { grid-column: auto; grid-row: auto; min-height: 130px; }
+  .ideas, .facts, .two, .sara { grid-template-columns: minmax(0, 1fr); }
+  .strip figure { flex-basis: 84vw; }
+  .vision { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 150px; }
+  .vision .v1, .vision .v2, .vision .v3 { grid-column: span 2; grid-row: span 2; }
+  .vision .v6, .vision .quote { grid-column: span 2; }
+  .dock { gap: 10px 16px; }
+  .icon { width: 54px; height: 54px; border-radius: 15px; }
+}
+</style>
+
+<div class="top"><div class="wrap">
+  <strong>Taing Ayting</strong>
+  <nav aria-label="Sections">
+    <a href="#ideas">My ideas</a>
+    <a href="#hr">My apps</a>
+    <a href="#next">What's next</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</div></div>
+
+<div class="wrap" id="home">
+  <div class="board">
+    <button class="view w-photo" type="button" data-group="me" data-src="photos/ginkgo.jpg" data-cap="Autumn under the ginkgo trees." aria-label="Open photo of Ayting"><img src="photos/ginkgo.jpg" alt="Ayting smiling in a cream sweater under golden ginkgo trees"></button>
+    <div class="tile w-hello">
+      <span class="label">Hello, I'm Ayting</span>
+      <h1>I turn the problems in my day into <em>apps people can use.</em></h1>
+      <p class="muted">I am from Cambodia. I studied Computer Science in China, and I work in HR at a factory. I build apps that make daily life easier, especially for students and people who cannot pay for expensive tools, like me.</p>
+    </div>
+    <div class="tile w-date" aria-label="Today's date"><span id="d-month">Today</span><b id="d-day">·</b><span id="d-week"></span></div>
+    <div class="tile w-stat"><b>3</b><span class="small muted">apps I built</span></div>
+    <div class="tile w-now">
+      <span class="label">What I do now</span>
+      <h3>HR by day. Builder always.</h3>
+      <p class="small muted">I use my own AI attendance app for my daily HR work, and I keep making it better.</p>
+    </div>
+    <div class="tile w-next">
+      <span class="label">What I want to be</span>
+      <h3>An AI Product Manager or AI Engineer</h3>
+      <p class="small muted">And I want to earn a Master's in AI abroad.</p>
+    </div>
+  </div>
+  <nav class="dock" aria-label="Open a section">
+    <a class="app-link" href="#hr"><span class="icon warm"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM9 13l2 2 4-4"/></svg></span>HR App</a>
+    <a class="app-link" href="#sara"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>Sara</a>
+    <a class="app-link" href="#ielts"><span class="icon cream"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6c-2-1.500-5-2-8-2v15c3 0 6 .5 8 2 2-1.500 5-2 8-2V4c-3 0-6 .5-8 2zM12 6v15"/></svg></span>IELTS</a>
+    <a class="app-link" href="#next"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.600 5.700 6.200.7-4.600 4.200 1.300 6.100L12 16.600l-5.500 3.100 1.300-6.100L3.200 9.400l6.200-.7z"/></svg></span>My Goals</a>
+    <a class="app-link" href="#photos"><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.600"/><path d="M4 17l5-4 3 2 3-3 5 4"/></svg></span>Photos</a>
+    <a class="app-link" href="#contact"><span class="icon warm"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 8l9 6 9-6"/></svg></span>Contact</a>
+  </nav>
+</div>
+
+<section id="ideas"><div class="wrap">
+  <div class="head">
+    <span class="label">How I think</span>
+    <h2>Every app starts with <em>something hard in my day.</em></h2>
+    <p class="muted">I believe a good idea matters as much as good code. These are my problems and what I built.</p>
+  </div>
+  <div class="ideas">
+    <div class="note"><span lang="km">១</span><strong>Excel formulas and formats are hard to remember.</strong>So I built Sara. You just say what you want, and it does it.</div>
+    <div class="note"><span lang="km">២</span><strong>I started in HR knowing nothing, and I had to finish on time.</strong>So I built an app that helps me manage the work.</div>
+    <div class="note"><span lang="km">៣</span><strong>I could not find a free IELTS practice app with what I needed.</strong>So I built one myself.</div>
+  </div>
+</div></section>
+
+<section id="hr"><div class="wrap">
+  <div class="head">
+    <span class="label">My main app</span>
+    <h2>HR Attendance App</h2>
+    <p class="muted">When I started in HR, I knew nothing, and I needed better management to finish my work on time. Every day, paper sheets must match fingerprint records, and workers' pay depends on it. Now the app checks them, and I handle the cases that need a person.</p>
+  </div>
+  <div class="window">
+    <div class="win-bar"><i></i><i></i><i></i>My real app · one full day of attendance</div>
+    <video id="hr-video" controls preload="metadata" playsinline poster="media/hr-check.jpg" src="media/hr-walkthrough.webm"></video>
+  </div>
+  <div class="facts">
+    <div class="tile">
+      <span class="label">The size</span>
+      <div class="figs"><div><b>13,000+</b><span>lines of Python</span></div><div><b>9,000+</b><span>saved changes logged</span></div></div>
+    </div>
+    <div class="tile">
+      <span class="label">How it earns trust</span>
+      <p class="small">AI reads handwriting, and unclear values go to a person. Nothing saves until HR types YES.</p>
+    </div>
+    <div class="tile">
+      <span class="label">What real use taught me</span>
+      <p class="small">232 of 441 night shifts in one week ended near 06:00, not 03:30. So I changed my rules.</p>
+    </div>
+  </div>
+  <div class="strip" data-strip>
+    <figure><button class="view" type="button" data-group="hr" data-src="media/hr-today.jpg" data-cap="My day starts here: what is open, and which file is ready." aria-label="Open screenshot: daily start"><img src="media/hr-today.jpg" alt="App screenshot: daily attendance start page" loading="lazy"></button><figcaption>My day starts here.</figcaption></figure>
+    <figure><button class="view" type="button" data-group="hr" data-src="media/hr-check.jpg" data-cap="10 workers are the same on paper and fingerprint. 4 need attention." aria-label="Open screenshot: check results"><img src="media/hr-check.jpg" alt="App screenshot: check results" loading="lazy"></button><figcaption>10 workers match. 4 need me.</figcaption></figure>
+    <figure><button class="view" type="button" data-group="hr" data-src="media/hr-table.jpg" data-cap="Green is the same. Yellow is different. Red means ask the worker." aria-label="Open screenshot: result table"><img src="media/hr-table.jpg" alt="App screenshot: colour-coded worker table" loading="lazy"></button><figcaption>Every worker, colour-coded.</figcaption></figure>
+    <figure><button class="view" type="button" data-group="hr" data-src="media/hr-yes.jpg" data-cap="It shows every cell first, and waits for YES." aria-label="Open screenshot: type YES"><img src="media/hr-yes.jpg" alt="App screenshot: type YES before saving" loading="lazy"></button><figcaption>Nothing saves without YES.</figcaption></figure>
+    <figure><button class="view" type="button" data-group="hr" data-src="media/hr-saved.jpg" data-cap="Saved, checked, and ready to undo if needed." aria-label="Open screenshot: saved"><img src="media/hr-saved.jpg" alt="App screenshot: saved confirmation" loading="lazy"></button><figcaption>Saved, with undo ready.</figcaption></figure>
+    <figure><button class="view" type="button" data-group="hr" data-src="media/hr-questions.jpg" data-cap="The app keeps my list of questions to ask workers." aria-label="Open screenshot: questions"><img src="media/hr-questions.jpg" alt="App screenshot: questions to ask workers" loading="lazy"></button><figcaption>Questions I must ask.</figcaption></figure>
+    <figure><button class="view" type="button" data-group="hr" data-src="media/hr-recruit.jpg" data-cap="The HR side: requests, candidates and hiring." aria-label="Open screenshot: recruitment"><img src="media/hr-recruit.jpg" alt="App screenshot: recruitment page" loading="lazy"></button><figcaption>The HR side of the app.</figcaption></figure>
+  </div>
+  <p class="small muted">Real app, shown with sample workers because real worker data is private. AI coding tools, mainly Claude, wrote much of the code. I find the problem, set the rules, test it and decide what is right.</p>
+</div></section>
+
+<section id="sara"><div class="wrap">
+  <div class="head">
+    <span class="label">Final-year project</span>
+    <h2>Sara, Voice for Excel</h2>
+    <p class="muted">My first app. Excel is hard when you must remember formulas and formats, so with Sara you just say what you want. These are real recordings: I speak, Sara changes the real Excel file and answers. A validator checks every action, and undo is built in.</p>
+    <p><a class="btn" href="https://github.com/taingayting/Ai-assistant-execl-Controller" rel="noopener">Read the code on GitHub</a></p>
+  </div>
+  <div class="sara">
+    <div class="window"><div class="win-bar"><i></i><i></i><i></i>"Add row John 90"</div><video data-auto muted loop controls playsinline preload="metadata" poster="media/sara-add-row.jpg" src="media/sara-add-row.mp4"></video></div>
+    <div class="side">
+      <div class="window"><div class="win-bar"><i></i><i></i><i></i>"Sum B2 B6 into C3"</div><video data-auto muted loop controls playsinline preload="metadata" poster="media/sara-sum.jpg" src="media/sara-sum.mp4"></video></div>
+      <div class="window"><div class="win-bar"><i></i><i></i><i></i>"Undo"</div><video data-auto muted loop controls playsinline preload="metadata" poster="media/sara-undo.jpg" src="media/sara-undo.mp4"></video></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="ielts"><div class="wrap">
+  <div class="head">
+    <span class="label">Built for myself</span>
+    <h2>IELTS Study App</h2>
+    <p class="muted">When I prepared for my exam, I could not find a free app with the practice and features I needed, so I built it. It has 2,560 questions and 979 key words with Khmer meanings. Book text is blurred here because it is copyrighted.</p>
+  </div>
+  <div class="strip" data-strip>
+    <figure><button class="view" type="button" data-group="ielts" data-src="media/i-dash.jpg" data-cap="My dashboard counts down to the exam." aria-label="Open screenshot: dashboard"><img src="media/i-dash.jpg" alt="App screenshot: study dashboard" loading="lazy"></button><figcaption>Dashboard</figcaption></figure>
+    <figure><button class="view" type="button" data-group="ielts" data-src="media/i-reader.jpg" data-cap="The reading test screen. Book text is blurred here." aria-label="Open screenshot: reading test"><img src="media/i-reader.jpg" alt="App screenshot: reading test with blurred book text" loading="lazy"></button><figcaption>Reading test</figcaption></figure>
+    <figure><button class="view" type="button" data-group="ielts" data-src="media/i-plan.jpg" data-cap="A daily plan built from the exam date." aria-label="Open screenshot: study plan"><img src="media/i-plan.jpg" alt="App screenshot: daily study plan" loading="lazy"></button><figcaption>Study plan</figcaption></figure>
+    <figure><button class="view" type="button" data-group="ielts" data-src="media/i-vocab.jpg" data-cap="Vocabulary decks with flashcards." aria-label="Open screenshot: vocabulary"><img src="media/i-vocab.jpg" alt="App screenshot: vocabulary decks" loading="lazy"></button><figcaption>Vocabulary</figcaption></figure>
+    <figure><button class="view" type="button" data-group="ielts" data-src="media/i-grammar.jpg" data-cap="Grammar lessons for common Khmer speaker errors." aria-label="Open screenshot: grammar"><img src="media/i-grammar.jpg" alt="App screenshot: grammar lessons" loading="lazy"></button><figcaption>Grammar</figcaption></figure>
+  </div>
+</div></section>
+
+<section id="next"><div class="wrap">
+  <div class="head">
+    <span class="label">My purpose</span>
+    <h2>What I want to do <em>next.</em></h2>
+    <p class="muted">My passion is building apps and websites that make life easier, and that support students and people with little money, like me.</p>
+  </div>
+  <div class="two">
+    <div class="tile">
+      <span class="label">Why I want to work with you</span>
+      <h3>AI Product Manager or AI Engineer, with US teams</h3>
+      <p>I have been the person using the software. I know what it means when an app is wrong about someone's pay. I want to help build AI that real people can trust and use.</p>
+      <p class="small muted">Remote now, or on site with visa sponsorship.</p>
+    </div>
+    <div class="tile">
+      <span class="label">Why I want to study abroad</span>
+      <h3>A Master's in AI or Computer Science, in the USA or Norway</h3>
+      <p>I want stronger skills, real practice and a new culture to learn from. Then I want to bring new opportunity to Cambodian workplaces that still run on paper.</p>
+      <p class="small muted">I moved to China alone and earned my degree in my third language. I know how to start again in a new place.</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="photos"><div class="wrap">
+  <div class="head"><span class="label">My vision board</span><h2>A little of my life</h2></div>
+  <div class="vision">
+    <button class="view v1" type="button" data-group="me" data-src="photos/hero.jpg" data-cap="Graduation day, with Khmer silk under my gown." aria-label="Open photo: graduation"><img src="photos/hero.jpg" alt="Ayting at graduation in a gown and Khmer silk skirt" style="object-position:50% 22%" loading="lazy"></button>
+    <button class="view v2" type="button" data-group="me" data-src="photos/wall.jpg" data-cap="Khmer silk goes where I go." aria-label="Open photo: Khmer silk"><img src="photos/wall.jpg" alt="Ayting sitting on a wall in her gown and silk skirt" loading="lazy"></button>
+    <button class="view v3" type="button" data-group="me" data-src="photos/lake.jpg" data-cap="Graduation summer, with flowers." aria-label="Open photo: flowers"><img src="photos/lake.jpg" alt="Ayting by a lake with two bouquets" style="object-position:50% 72%" loading="lazy"></button>
+    <div class="quote">Khmer women are capable, smart, confident and independent.</div>
+    <button class="view v6" type="button" data-group="me" data-src="photos/sky.jpg" data-cap="Finished, and looking ahead." aria-label="Open photo: blue sky"><img src="photos/sky.jpg" alt="Ayting in her gown under a blue sky" style="object-position:50% 47%" loading="lazy"></button>
+    <button class="view v4" type="button" data-group="me" data-src="photos/ice.jpg" data-cap="Ice karting in a Chinese winter." aria-label="Open photo: ice karting"><img src="photos/ice.jpg" alt="Ayting riding a small kart on ice" loading="lazy"></button>
+    <button class="view v5" type="button" data-group="me" data-src="photos/cat.jpg" data-cap="I always stop to greet a campus cat." aria-label="Open photo: cat"><img src="photos/cat.jpg" alt="Ayting greeting a campus cat" style="object-position:50% 30%" loading="lazy"></button>
+  </div>
+</div></section>
+
+<section id="background"><div class="wrap">
+  <div class="two">
+    <div class="tile">
+      <span class="label">Experience</span>
+      <div class="rows">
+        <div class="row"><strong>HR, factory in Cambodia</strong><span class="when">Current</span></div>
+        <div class="row"><strong>Tax Consultant, Cambodia</strong><span class="when">1 year</span></div>
+        <div class="row"><strong>Document Translator and Assistant</strong><span class="when">Company role</span></div>
+      </div>
+    </div>
+    <div class="tile">
+      <span class="label">Education and skills</span>
+      <div class="rows">
+        <div class="row"><strong>B.S. Computer Science, Shenyang Ligong University</strong><span class="when">June 2026</span></div>
+        <div class="row"><strong>Intensive Chinese, Northeast Normal University</strong><span class="when">1 year</span></div>
+      </div>
+      <p class="small muted">Python, SQL, JavaScript, Flask, Streamlit, Vue.js, LLM integration, Git. Khmer (native), Chinese (HSK 5), English (B2).</p>
+    </div>
+  </div>
+</div></section>
+
+<div class="wrap" id="contact">
+  <div class="contact">
+    <p lang="km">អរគុណ</p>
+    <h2>Let's <em>talk.</em></h2>
+    <div class="links">
+      <span id="email">aytingserena@gmail.com</span>
+      <button class="btn" type="button" id="copy-email">Copy email</button>
+      <a href="https://github.com/taingayting" rel="noopener">github.com/taingayting</a>
+    </div>
+  </div>
+</div>
+
+<dialog id="lightbox" aria-label="Image viewer">
+  <div class="lb">
+    <div class="stage"><img id="lb-img" src="photos/ginkgo.jpg" alt=""></div>
+    <div class="ctl">
+      <span class="cap" id="lb-cap"></span>
+      <button type="button" id="lb-prev">Previous</button>
+      <button type="button" id="lb-close">Close</button>
+      <button type="button" id="lb-next">Next</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+(function () {
+  function $(id) { return document.getElementById(id); }
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Date widget */
+  var now = new Date();
+  $('d-month').textContent = now.toLocaleDateString('en', { month: 'long' });
+  $('d-day').textContent = now.getDate();
+  $('d-week').textContent = now.toLocaleDateString('en', { weekday: 'long' });
+
+  /* Drag to scroll the strips */
+  var moved = false;
+  [].forEach.call(document.querySelectorAll('[data-strip]'), function (s) {
+    var down = false, x0 = 0, l0 = 0;
+    s.addEventListener('pointerdown', function (e) { if (e.pointerType === 'mouse') { down = true; moved = false; x0 = e.clientX; l0 = s.scrollLeft; } });
+    addEventListener('pointermove', function (e) {
+      if (!down) return;
+      var dx = e.clientX - x0;
+      if (Math.abs(dx) > 6) { moved = true; s.classList.add('dragging'); s.scrollLeft = l0 - dx; }
+    });
+    addEventListener('pointerup', function () { down = false; s.classList.remove('dragging'); });
+    s.addEventListener('dragstart', function (e) { e.preventDefault(); });
+  });
+
+  /* Sara's videos play when they are on screen */
+  if ('IntersectionObserver' in window && !reduced) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { var p = e.target.play(); if (p && p.catch) p.catch(function () {}); } else { e.target.pause(); }
+      });
+    }, { threshold: 0.4 });
+    [].forEach.call(document.querySelectorAll('video[data-auto]'), function (v) { io.observe(v); });
+  }
+
+  /* Viewer for screenshots and photos */
+  var lb = $('lightbox'), list = [], at = 0;
+  var all = [].slice.call(document.querySelectorAll('.view[data-src]'));
+  function show(i) {
+    at = (i + list.length) % list.length;
+    var b = list[at];
+    $('lb-img').src = b.getAttribute('data-src');
+    $('lb-img').alt = b.querySelector('img').alt;
+    $('lb-cap').textContent = b.getAttribute('data-cap');
+  }
+  all.forEach(function (b) {
+    b.addEventListener('click', function (e) {
+      if (moved) { moved = false; e.preventDefault(); return; }
+      var g = b.getAttribute('data-group');
+      list = all.filter(function (x) { return x.getAttribute('data-group') === g; });
+      show(list.indexOf(b));
+      if (lb.showModal) { lb.showModal(); } else { lb.setAttribute('open', ''); }
+    });
+  });
+  $('lb-prev').addEventListener('click', function () { show(at - 1); });
+  $('lb-next').addEventListener('click', function () { show(at + 1); });
+  $('lb-close').addEventListener('click', function () { lb.close(); });
+  lb.addEventListener('click', function (e) { if (e.target === lb || e.target.classList.contains('stage')) lb.close(); });
+  lb.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') show(at + 1);
+    if (e.key === 'ArrowLeft') show(at - 1);
+  });
+
+  /* Copy email */
+  var btn = $('copy-email'), email = $('email');
+  btn.addEventListener('click', function () {
+    function selectIt() {
+      var r = document.createRange();
+      r.selectNodeContents(email);
+      var s = window.getSelection();
+      s.removeAllRanges();
+      s.addRange(r);
+      btn.textContent = 'Press Ctrl+C to copy';
+    }
+    if (!navigator.clipboard) { selectIt(); return; }
+    navigator.clipboard.writeText(email.textContent).then(function () { btn.textContent = 'Copied'; }, selectIt);
+  });
+})();
+</script>
+</html>
